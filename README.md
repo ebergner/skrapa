@@ -36,3 +36,8 @@ _Scrape any website using CSS selectors and a simple RESTful API___Skrapa__ al
     
     curl --header "Content-type: application/json" --request POST \
     --data '{"url": "http://github.com/blog", "format": {"headers": "li.post h2 a"}}' http://localhost:8000<sub>_Skrapa means 'to scrape' in Swedish. So there's that._</sub>
+## License
+
+Copyright (c) 2012 Emil Bergner
+
+Licensed under the MIT license.
