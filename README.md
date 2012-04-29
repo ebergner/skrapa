@@ -19,10 +19,18 @@
   }}
 ```
 Removing the ":first" from the selector would result in an array that contains the titles of all blog posts (on the first page):``` javascript{
-  "scraped": {    "all_headers":["Akavache is now open source","Introducing the New GitHub Graphs","Fileserver Maintenance Wednesday Night","Rob Sanheim is a GitHubber","Ben Straub is a GitHubber","David Calavera is a GitHubber","An easier way to create repositories","Credential Caching for Wrist-Friendly Git Usage","Ten Years of farbrausch Productions on GitHub","GitHub for Mac: Easier Updates","SF Drinkup #36","Take Over The Galaxy with GitHub","GitHub Drinkup in Portland, OR","Jason Salaz is a GitHubber","Sean Bryant is a GitHubber"]
+  "scraped": {    "all_headers":["Akavache is now open source", "Introducing the New GitHub Graphs",
+        "Fileserver Maintenance Wednesday Night","Rob Sanheim is a GitHubber",
+        "Ben Straub is a GitHubber","David Calavera is a GitHubber",
+        "An easier way to create repositories","Credential Caching for Wrist-Friendly Git Usage",
+        "Ten Years of farbrausch Productions on GitHub","GitHub for Mac: Easier Updates",
+        "SF Drinkup #36","Take Over The Galaxy with GitHub",
+        "GitHub Drinkup in Portland, OR","Jason Salaz is a GitHubber",
+        "Sean Bryant is a GitHubber"]
   }}
 ```
 ## Tips
 If you're on something Unix-like, use curl to try out your scraping queries:
     
-    curl --header "Content-type: application/json" --request POST --data '{"url": "http://github.com/blog", "format": {"headers": "li.post h2 a"}}' http://localhost:8000<sub>_Skrapa means 'to scrape' in Swedish. So there's that._</sub>
+    curl --header "Content-type: application/json" --request POST
+    --data '{"url": "http://github.com/blog", "format": {"headers": "li.post h2 a"}}' http://localhost:8000<sub>_Skrapa means 'to scrape' in Swedish. So there's that._</sub>
