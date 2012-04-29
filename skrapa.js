@@ -82,7 +82,7 @@ http.createServer(function(req, res) {
 			log('Response format is: ' + JSON.stringify(json));
 			if (url != undefined && format != undefined) {
 				Scrapper.scrapeUrlWithFormat(url, format, function(scraped) {
-					ok(JSON.stringify(scraped));
+					ok(JSON.stringify({ scraped: scraped }));
 				});
 			} else {
 				badRequest('Error parsing json');
@@ -92,5 +92,3 @@ http.createServer(function(req, res) {
 		badRequest('Error, request should be POST');
 	}
 }).listen(argv.port ? argv.port : 8000);
-
-// curl --header "Content-type: application/json" --request POST --data '{"url": "http://github.com/blog", "format": {"first_header": "li.post:first h2 a"}}' http://localhost:8000
