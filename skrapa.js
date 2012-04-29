@@ -29,21 +29,31 @@ var Scrapper = (function() {
 
 	return {
 		scrapeUrlWithFormat : function(url, format, answer) {
+			var answerWithError = function(msg) {
+				log(msg);
+				answer(null, msg);
+			};
 			request({
 				uri : url
 			}, function(error, response, body) {
 				log('Requesting url ' + url);
 				if (error && response.statusCode !== 200) {
-					console.log('Error when contacting ' + url);
-					answer({});
+					answerWithError('Error when contacting ' + url);
 				} else {
 					jsdom.env({
 						html : url,
 						src : jQuery,
-						done: function(err, window) {
-							log(err);
-							var scraped = scrape(window.$, format);
-							answer(scraped);
+						done: function(error, window) {
+							if(!error) {
+								try {
+									var scraped = scrape(window.$, format);
+									answer(scraped);
+								} catch(e) {
+									answerWithError('Error while scraping: ' + e.toString());
+								}
+							} else {
+								answerWithError('Error setting up jsdom environment');
+							}
 						}
 					});
 				}
@@ -76,16 +86,27 @@ http.createServer(function(req, res) {
 			}
 		});
 		req.on('end', function() {
-			var json = JSON.parse(body);
-			var url = json.url;
-			var format = json.format;
-			log('Response format is: ' + JSON.stringify(json));
-			if (url != undefined && format != undefined) {
-				Scrapper.scrapeUrlWithFormat(url, format, function(scraped) {
-					ok(JSON.stringify({ scraped: scraped }));
-				});
-			} else {
-				badRequest('Error parsing json');
+			var json = undefined;
+			try {
+				json = JSON.parse(body);
+			} catch (e) {
+				badRequest("The request body: " + body + ", is not a well-formed JSON string");
+			}
+			if(json) {
+				var url = json.url;
+				var format = json.scrape;
+				log('Request body is: ' + body);
+				if (url != undefined && format != undefined) {
+					Scrapper.scrapeUrlWithFormat(url, format, function(scraped, error) {
+						if(!error) {
+							ok(JSON.stringify({ scraped: scraped }));
+						} else {
+							badRequest(error);
+						}
+					});
+				} else {
+					badRequest('The request JSON does not have fields "url" and "scrape"');
+				}
 			}
 		});
 	} else {
