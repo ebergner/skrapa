@@ -1,10 +1,10 @@
 # Skrapa
 _Scrape any website using CSS selectors and a simple RESTful API___Skrapa__ allows you to easily setup a server that exposes an API, which can be used to extract (aka scrape) information contained in websites. This is all possible by relying on Node.js and several Node.js libraries, most notably jsdom.
-## Motivation
+## Design
 * Use CSS to select HTML elements to scrape, since we all know it.* Use Node.js because it features jsdom, which is a javascript implementation of the W3C DOM, where we can load any given url, inject a proven javascript library such as jQuery into it, and use that javascript library to select HTML tags.* Node.js event-driven model is also not a bad fit since we'll be waiting for page urls to load.* Make it language agnostic by wrapping it all up in a web server that exposes a simple REST API, which takes a JSON request that defines entirely what should be scraped, i.e. the server is not preconfigured with this in any way (URL and CSS selectors).## Installation
-Make sure you have Node.js installed or install it from [nodejs.org](http://nodejs.org/).Download the project [source](https://github.com/ebergner/skrapa/zipball/master) and extract it.
+Make sure you have Node.js installed or install it from [nodejs.org](http://nodejs.org/).Download the project [source](https://github.com/ebergner/skrapa/zipball/master) and extract it.    cd <extracted directory>
 
-__Skrapa__ depends on jsdom, request, and optimist. You can install them with node's npm by navigating to the extracted directory and doing:
+Install Skrapa's dependencies with node's npm:
     npm install jsdom request optimistNow start the server with:         node skrapa.js### Options
 Pass --log to display logging messages:
     node skrapa.js --log
@@ -38,7 +38,7 @@ __Skrapa__ depends on jsdom, request, and optimist. You can install them with no
 If you're on something Unix-like, use curl to try out your scraping queries:
     
     curl --header "Content-type: application/json" --request POST \
-    --data '{"url": "http://github.com/blog", "format": {"headers": "li.post h2 a"}}' http://localhost:8000<sub>_Skrapa means 'to scrape' in Swedish. So there's that._</sub>
+    --data '{"url": "http://github.com/blog", "scrape": {"headers": "li.post h2 a"}}' http://localhost:8000<sub>_Skrapa means 'to scrape' in Swedish. So there's that._</sub>
 ## License
 
 Copyright (c) 2012 Emil Bergner
