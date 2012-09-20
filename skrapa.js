@@ -100,7 +100,7 @@ http.createServer(function(req, res) {
 					Scrapper.scrapeUrlWithFormat(url, format, function(scraped, error) {
 						if(!error) {
 							ok(JSON.stringify({ scraped: scraped }));
-						} else {
+						} else {s
 							badRequest(error);
 						}
 					});
@@ -112,4 +112,4 @@ http.createServer(function(req, res) {
 	} else {
 		badRequest('Error, request should be POST');
 	}
-}).listen(argv.port ? argv.port : 8000);
+}).listen(argv.port ? argv.port : process.env.PORT || 8000);
