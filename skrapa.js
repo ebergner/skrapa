@@ -1,8 +1,8 @@
 var request = require('request'),
     jsdom = require('jsdom'),
     http = require('http'),
-    fs = require('fs');
-var argv = require('optimist').argv;
+    fs = require('fs'),
+    argv = require('optimist').argv;
 
 var log = function(msg) {
 	if(argv.log) {

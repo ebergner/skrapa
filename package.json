@@ -1,6 +1,6 @@
 {
   "name": "skrapa",
-  "version": "0.1",
+  "version": "1.0.0",
   "dependencies": {
     "request": "2.11.x",
     "jsdom": "0.2.x",
