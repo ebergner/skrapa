@@ -1,0 +1,13 @@
+{
+  "name": "skrapa",
+  "version": "0.1",
+  "dependencies": {
+    "request": "2.11.x",
+    "jsdom": "0.2.x",
+    "optimist": "0.3.x"
+  },
+  "engines": {
+    "node": "0.8.x",
+    "npm": "1.1.x"
+  }
+}
